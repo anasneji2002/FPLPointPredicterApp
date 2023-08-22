@@ -1,3 +1,0 @@
-env:
-  - key: PYTHON_VERSION
-    value: 3.8.2  # Replace this with the desired Python version

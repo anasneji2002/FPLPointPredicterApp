@@ -1,8 +1,10 @@
+import subprocess
 from flask import Flask,request,render_template
 import pickle
 import pandas as pd
 
 app=Flask(__name__)
+
 
 
 @app.route('/')
@@ -16,12 +18,16 @@ def predict():
     position=data[0]
     player=data[1]
     if(position=='FWD'):
+        subprocess.run(['python', 'FWD.py'], shell=True)
         df = pd.read_pickle('FWD.pkl')
     elif(position=='MID'):
+        subprocess.run(['python', 'MID.py'], shell=True)
         df = pd.read_pickle('MID.pkl')
     elif(position=='DEF'):
+        subprocess.run(['python', 'DEF.py'], shell=True)
         df = pd.read_pickle('DEF.pkl')
     else:
+        subprocess.run(['python', 'GK.py'], shell=True)
         df = pd.read_pickle('GK.pkl')
     response=df[df['Name']==player]['Predicted_points']
     if(response.empty==False):
