@@ -1,5 +1,6 @@
 from flask import Flask,request,render_template
 import pickle
+import pandas as pd
 
 app=Flask(__name__)
 
@@ -15,13 +16,13 @@ def predict():
     position=data[0]
     player=data[1]
     if(position=='FWD'):
-        df=pickle.load(open('FWD.pkl','rb'))
+        df = pd.read_pickle('FWD.pkl')
     elif(position=='MID'):
-        df=pickle.load(open('MID.pkl','rb'))
+        df = pd.read_pickle('MID.pkl')
     elif(position=='DEF'):
-        df=pickle.load(open('DEF.pkl','rb'))
+        df = pd.read_pickle('DEF.pkl')
     else:
-        df=pickle.load(open('GK.pkl','rb'))
+        df = pd.read_pickle('GK.pkl')
     response=df[df['Name']==player]['Predicted_points']
     if(response.empty==False):
         response=round(float(response),2)
