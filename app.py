@@ -1,3 +1,4 @@
+import os
 import subprocess
 from flask import Flask,request,render_template
 import pickle
@@ -5,7 +6,10 @@ import pandas as pd
 
 app=Flask(__name__)
 
-
+def delete_pickle_file(position):
+    filename = position + '.pkl'
+    if os.path.exists(filename):
+        os.remove(filename)
 
 @app.route('/')
 def hello():
@@ -17,6 +21,7 @@ def predict():
     data=[x for x in request.form.values()]
     position=data[0]
     player=data[1]
+    delete_pickle_file(position)
     if(position=='FWD'):
         subprocess.run(['python', 'FWD.py'], shell=True)
         df = pd.read_pickle('FWD.pkl')
