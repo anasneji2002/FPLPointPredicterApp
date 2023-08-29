@@ -20,6 +20,7 @@ def predict():
     elements_df['points_per_game'] = elements_df.points_per_game.astype(float)
     elements_df['matches_played']=mp.matches_played(elements_df['total_points'],elements_df['points_per_game'])
     elements_df['matches_played']=elements_df['matches_played'].fillna(0)
+    elements_df.replace([np.inf, -np.inf], 0, inplace=True)
     elements_df['matches_played'] = elements_df.matches_played.astype(int)
     elements_df['expected_goals'] = elements_df.expected_goals.astype(float)
     elements_df['expected_assists'] = elements_df.expected_assists.astype(float)
